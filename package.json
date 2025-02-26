@@ -1,12 +1,33 @@
 {
-  "name": "abi-members-scraper",
+  "name": "abi-members",
   "version": "1.0.0",
-  "description": "A scraper for ABI members data",
+  "description": "A package to scrape and process ABI (Association of British Insurers) members data",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "abi-members": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && node dist/index.js"
+    "start": "npm run build && node dist/cli.js",
+    "prepublishOnly": "npm run build"
   },
+  "keywords": [
+    "abi",
+    "insurance",
+    "scraper",
+    "data",
+    "uk",
+    "british",
+    "insurers"
+  ],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
     "playwright": "^1.42.1",
     "fs-extra": "^11.2.0"
@@ -15,5 +36,16 @@
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.30",
     "typescript": "^5.4.2"
-  }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/abi-members.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/abi-members/issues"
+  },
+  "homepage": "https://github.com/yourusername/abi-members#readme"
 } 

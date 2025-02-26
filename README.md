@@ -1,6 +1,6 @@
-# ABI Members Scraper
+# ABI Members
 
-A TypeScript and Playwright-based scraper to extract information about ABI (Association of British Insurers) members from their website.
+A TypeScript package to scrape and process information about ABI (Association of British Insurers) members from their website.
 
 ## Features
 
@@ -8,41 +8,99 @@ A TypeScript and Playwright-based scraper to extract information about ABI (Asso
 - Handles pagination automatically
 - Extracts member name, group, address, telephone, and website
 - Generates both a well-formatted Markdown file and a structured JSON file with all the data
-
-## Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
+- Can be used as a library in your own projects or as a command-line tool
 
 ## Installation
 
-1. Clone this repository or download the source code
-2. Navigate to the project directory
-3. Install dependencies:
+### As a dependency in your project
 
 ```bash
-npm install
+npm install abi-members
+```
+
+### As a global command-line tool
+
+```bash
+npm install -g abi-members
 ```
 
 ## Usage
 
-To run the scraper:
+### As a library
+
+```typescript
+import { AbiMembersScraper, AbiMember } from 'abi-members';
+
+async function example() {
+  // Create a new scraper instance
+  const scraper = new AbiMembersScraper();
+  
+  // Scrape members
+  const members: AbiMember[] = await scraper.scrapeMembers();
+  
+  // Do something with the members data
+  console.log(`Found ${members.length} ABI members`);
+  
+  // Generate and save markdown
+  await scraper.saveToMarkdown(members, 'output.md');
+  
+  // Save to JSON
+  await scraper.saveToJson(members, 'output.json');
+  
+  // Or generate markdown without saving
+  const markdown = scraper.generateMarkdown(members);
+  console.log(markdown);
+}
+
+example().catch(console.error);
+```
+
+### As a command-line tool
+
+If installed globally:
 
 ```bash
-npm start
+abi-members
 ```
 
 This will:
 1. Launch a headless browser
 2. Navigate to the ABI members page
 3. Scrape all member data across all pages
-4. Generate a Markdown file (`abiMembers.md`) and a JSON file (`abiMembers.json`) with the results
+4. Generate a Markdown file (`abiMembers.md`) and a JSON file (`abiMembers.json`) with the results in the current directory
 
-## Output
+## API Reference
+
+### AbiMembersScraper
+
+The main class for scraping ABI members data.
+
+#### Methods
+
+- `scrapeMembers(): Promise<AbiMember[]>` - Scrapes ABI members data from the website
+- `generateMarkdown(members: AbiMember[]): string` - Generates markdown content from ABI members data
+- `saveToJson(members: AbiMember[], filePath: string): Promise<void>` - Saves ABI members data to a JSON file
+- `saveToMarkdown(members: AbiMember[], filePath: string): Promise<void>` - Saves ABI members data to a Markdown file
+
+### AbiMember
+
+Interface representing an ABI member.
+
+```typescript
+interface AbiMember {
+  name: string;
+  group?: string;
+  address?: string;
+  telephone?: string;
+  website?: string;
+}
+```
+
+## Output Format
 
 ### Markdown Output
 
-The script generates a Markdown file (`abiMembers.md`) in the root directory with all the ABI members data in the following format:
+The generated Markdown file has the following format:
 
 ```markdown
 # ABI Members
@@ -85,7 +143,7 @@ GX11 1AA
 
 ### JSON Output
 
-The script also generates a JSON file (`abiMembers.json`) with the following structure:
+The generated JSON file has the following structure:
 
 ```json
 {
@@ -107,6 +165,11 @@ The script also generates a JSON file (`abiMembers.json`) with the following str
   ]
 }
 ```
+
+## Requirements
+
+- Node.js (v14 or higher)
+- npm or yarn
 
 ## License
 
