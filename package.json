@@ -1,0 +1,19 @@
+{
+  "name": "abi-members-scraper",
+  "version": "1.0.0",
+  "description": "A scraper for ABI members data",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js"
+  },
+  "dependencies": {
+    "playwright": "^1.42.1",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.2"
+  }
+} 
